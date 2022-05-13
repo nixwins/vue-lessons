@@ -1,28 +1,48 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <!-- <h1>Hello vue</h1>
+    {{ num }}
+    <p>{{ lastname }}</p>
+    <p>{{ lastname + "#" + num * num }}</p> -->
+
+    <!-- <p v-if="num > 500" style="font-size: 300px">Asylbek</p> -->
+    <!-- <div v-for="u in users" :key="u">{{ u }}</div> -->
+    <!-- <button v-on:click="foo">Click me</button> -->
+    <!-- <button v-on:mouseover="boo">hover me</button> -->
+    <h1>{{ counter }}</h1>
+    <h2>{{ counter }}</h2>
+    <h3>{{ counter }}</h3>
+    <button v-on:click="increase">+</button>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
 export default {
   name: "App",
-  components: {
-    HelloWorld,
+  data() {
+    return {
+      counter: 0,
+      num: 600,
+      lastname: "Dosov",
+      users: ["dos", "asylbek"],
+    };
+  },
+  methods: {
+    increase() {
+      this.counter++;
+    },
+    // foo: function () {
+    //   alert();
+    // },
+    // boo() {
+    //   console.log("Booo boo");
+    // },
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
+
+
+
