@@ -1,18 +1,23 @@
 <template>
   <div>
-    <!-- <h1>Hello vue</h1>
-    {{ num }}
-    <p>{{ lastname }}</p>
-    <p>{{ lastname + "#" + num * num }}</p> -->
+    <div v-for="u in users" :key="u" class="item" v-on:click="showAlert(u)">
+      {{ u.name }}
+    </div>
 
-    <!-- <p v-if="num > 500" style="font-size: 300px">Asylbek</p> -->
-    <!-- <div v-for="u in users" :key="u">{{ u }}</div> -->
-    <!-- <button v-on:click="foo">Click me</button> -->
-    <!-- <button v-on:mouseover="boo">hover me</button> -->
-    <h1>{{ counter }}</h1>
-    <h2>{{ counter }}</h2>
-    <h3>{{ counter }}</h3>
-    <button v-on:click="increase">+</button>
+    <p style="font-size: 40px; color: red">{{ clickedUser }}</p>
+
+    <!-- <p>{{ name + " " + lastname }}</p> -->
+
+    <!-- <p>{{ fullname }}</p> -->
+
+    <!-- <button
+      class="button"
+      v-bind:class="{ 'is-active': isClicked }"
+      v-on:click="addClass"
+    >
+      Click me
+    </button> -->
+    <!-- <input type="text" v-bind:value="login" v-on:input="changeLogin" /> -->
   </div>
 </template>
 
@@ -21,28 +26,47 @@ export default {
   name: "App",
   data() {
     return {
-      counter: 0,
-      num: 600,
-      lastname: "Dosov",
-      users: ["dos", "asylbek"],
+      users: [
+        { id: 1, name: "Dos" },
+        { id: 2, name: "Asylbek" },
+      ],
+      name: "Dos",
+      lastname: "Zhora",
+      isClicked: false,
+      login: "1nixwins",
+      clickedUser: "",
     };
   },
-  methods: {
-    increase() {
-      this.counter++;
+  computed: {
+    fullname() {
+      return this.name + " " + this.lastname;
     },
-    // foo: function () {
-    //   alert();
-    // },
-    // boo() {
-    //   console.log("Booo boo");
-    // },
+  },
+  methods: {
+    showAlert(user) {
+      // alert();
+      // console.log("Privet", user.name);
+      this.clickedUser = user.name;
+    },
+    changeLogin(event) {
+      console.log(event);
+      this.login = event.target.value;
+    },
+
+    addClass() {
+      // this.isClicked = !this.isClicked;
+      // if (this.isClicked === true) {
+      //   this.isClicked = false;
+      // } else {
+      //   this.isClicked = true;
+      // }
+    },
   },
 };
 </script>
 
 <style>
+.is-active {
+  background: rosybrown;
+}
 </style>
-
-
-
