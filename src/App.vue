@@ -1,72 +1,88 @@
 <template>
-  <div>
-    <div v-for="u in users" :key="u" class="item" v-on:click="showAlert(u)">
-      {{ u.name }}
+  <div class="app">
+    <h1>Basket count: {{ count }}</h1>
+    <div class="list">
+      <!--TODO через v-for список продуктов(только имя) которые в корзине -->
+      <div class="list__item">Apple</div>
+      <div class="list__item">Ihpone</div>
+    </div>
+    <div class="product-list">
+      <!--TODO вывести через v-for -->
+      <product-card
+        v-bind:name="products[0].name"
+        v-bind:price="products[0].price"
+        v-bind:image="products[0].image"
+        v-on:startClick="increaseCount"
+      />
+      <product-card
+        v-bind:name="products[1].name"
+        v-bind:price="products[1].price"
+        v-on:startClick="increaseCount"
+      />
+      <product-card
+        v-bind:name="products[2].name"
+        v-bind:price="products[2].price"
+        v-bind:image="products[2].image"
+        v-on:startClick="increaseCount"
+      />
     </div>
 
-    <p style="font-size: 40px; color: red">{{ clickedUser }}</p>
-
-    <!-- <p>{{ name + " " + lastname }}</p> -->
-
-    <!-- <p>{{ fullname }}</p> -->
-
-    <!-- <button
-      class="button"
-      v-bind:class="{ 'is-active': isClicked }"
-      v-on:click="addClass"
-    >
-      Click me
-    </button> -->
-    <!-- <input type="text" v-bind:value="login" v-on:input="changeLogin" /> -->
+    <h6>{{ message }}</h6>
   </div>
 </template>
 
 <script>
+import ProductCard from "./ProductCard.vue";
 export default {
   name: "App",
+  components: {
+    ProductCard,
+  },
   data() {
     return {
-      users: [
-        { id: 1, name: "Dos" },
-        { id: 2, name: "Asylbek" },
+      count: 0,
+      message: "",
+      products: [
+        {
+          name: "Apple",
+          price: 3000,
+          image:
+            "https://object.pscloud.io/cms/cms/Photo/img_0_77_3179_0_1.jpg",
+        },
+        { name: "Orage", price: 5500 },
+        {
+          name: "Ihone",
+          price: 6000,
+          image:
+            "https://object.pscloud.io/cms/cms/Photo/img_0_8_1023_1_6_320.webp",
+        },
       ],
-      name: "Dos",
-      lastname: "Zhora",
-      isClicked: false,
-      login: "1nixwins",
-      clickedUser: "",
     };
   },
-  computed: {
-    fullname() {
-      return this.name + " " + this.lastname;
+  watch: {
+    count: {
+      handler() {
+        console.log("WATCH IN COUNT");
+        this.message = "count changed" + this.count;
+      },
     },
   },
+  mounted() {
+    this.count = localStorage.getItem("count");
+  },
   methods: {
-    showAlert(user) {
-      // alert();
-      // console.log("Privet", user.name);
-      this.clickedUser = user.name;
-    },
-    changeLogin(event) {
-      console.log(event);
-      this.login = event.target.value;
-    },
-
-    addClass() {
-      // this.isClicked = !this.isClicked;
-      // if (this.isClicked === true) {
-      //   this.isClicked = false;
-      // } else {
-      //   this.isClicked = true;
-      // }
+    increaseCount(r) {
+      this.count++;
+      console.log(r);
+      localStorage.setItem("count", this.count);
     },
   },
 };
 </script>
 
-<style>
-.is-active {
-  background: rosybrown;
+<style lang="css" scoped>
+.product-list {
+  display: flex;
+  gap: 1%;
 }
 </style>
