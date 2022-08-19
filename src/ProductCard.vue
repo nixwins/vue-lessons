@@ -2,20 +2,29 @@
   <div class="product-card">
     Product
     <img v-bind:src="image" alt="" />
-    <h2>{{ name }}</h2>
+    <product-name v-bind:name="name" v-on:clickHeader="clickedOnName" />
     <h3>{{ price }}</h3>
     <button v-on:click="addBasket">Add basket</button>
   </div>
 </template>
 
 <script>
+import ProductName from "./ProductName.vue";
 export default {
   name: "ProductCard",
   props: ["name", "price", "image"],
+  components: {
+    ProductName,
+  },
+
   methods: {
     addBasket() {
       console.log("clicked product");
-      this.$emit("startClick", this.price);
+      this.$emit("startClick", this.name);
+    },
+    clickedOnName() {
+      console.log("clicked on name start");
+      this.$emit("clickOnProuctName");
     },
   },
 };

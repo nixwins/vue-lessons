@@ -8,7 +8,15 @@
     </div>
     <div class="product-list">
       <!--TODO вывести через v-for -->
+
       <product-card
+        v-for="product in products"
+        :key="product.name"
+        v-bind:name="product.name"
+        v-on:startClick="addBasket"
+        v-on:clickOnProuctName="nameClick"
+      />
+      <!-- <product-card
         v-bind:name="products[0].name"
         v-bind:price="products[0].price"
         v-bind:image="products[0].image"
@@ -24,7 +32,7 @@
         v-bind:price="products[2].price"
         v-bind:image="products[2].image"
         v-on:startClick="increaseCount"
-      />
+      /> -->
     </div>
 
     <h6>{{ message }}</h6>
@@ -42,6 +50,7 @@ export default {
     return {
       count: 0,
       message: "",
+      basketProducts: [],
       products: [
         {
           name: "Apple",
@@ -71,10 +80,11 @@ export default {
     this.count = localStorage.getItem("count");
   },
   methods: {
-    increaseCount(r) {
-      this.count++;
-      console.log(r);
-      localStorage.setItem("count", this.count);
+    addBasket(name) {
+      this.basketProducts.push(name);
+    },
+    nameClick() {
+      console.log("App click on name");
     },
   },
 };
